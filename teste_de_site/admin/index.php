@@ -43,7 +43,7 @@ if (!isset($_SESSION['logado']) || $_SESSION['logado'] !== true || $_SESSION['is
             <input type="number" step="0.1" name="nota" placeholder="Ex: 8.5" required>
 
             <label>Caminho da Capa</label>
-            <input type="text" name="caminho_capa" placeholder="Ex: assets/capas/batman.jpg" required>
+            <input type="text" name="caminho_capa" placeholder="Ex: assets/capas/nome da capa" required>
 
             <button type="submit" class="btn-primary" style="width: 100%; padding: 15px; font-size: 1.1rem;">Publicar Filme</button>
         </form>
