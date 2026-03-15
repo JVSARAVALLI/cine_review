@@ -1,0 +1,248 @@
+/* --- VARIÁVEIS E RESET --- */
+:root {
+    --bg-dark: #0f0f0f;       /* Fundo quase preto (Ref 2) */
+    --bg-card: #1a1a1a;       /* Fundo dos cards */
+    --text-primary: #ffffff;
+    --text-gray: #b3b3b3;
+    --accent-red: #e50914;    /* Vermelho Netflix (Ref 2) */
+    --gradient-overlay: linear-gradient(to top, #0f0f0f 10%, transparent 90%);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+}
+
+/* --- NAVBAR --- */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 5%;
+    position: fixed; /* Fixa no topo */
+    width: 100%;
+    z-index: 1000;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
+}
+
+.logo { font-size: 1.5rem; font-weight: bold; }
+.highlight { color: var(--accent-red); }
+
+.menu { list-style: none; display: flex; gap: 20px; }
+.menu a { text-decoration: none; color: var(--text-primary); font-weight: 500; }
+.btn-login { background: var(--accent-red); padding: 8px 20px; border-radius: 4px; }
+
+/* --- HERO SECTION (Under the Hood: O segredo da legibilidade) --- */
+.hero {
+    height: 85vh; /* 85% da altura da tela */
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+/* Camada escura para o texto aparecer sobre a imagem */
+.hero-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(to right, #0f0f0f 30%, transparent 100%);
+    display: flex;
+    align-items: center;
+    padding-left: 5%;
+}
+
+.hero-content { max-width: 600px; }
+.tag { color: var(--accent-red); font-weight: bold; text-transform: uppercase; font-size: 0.9rem; }
+.hero-content h1 { font-size: 4rem; line-height: 1.1; margin: 10px 0; }
+.meta-info { color: var(--text-gray); margin-bottom: 20px; font-size: 1.1rem; }
+.description { color: #ddd; line-height: 1.6; margin-bottom: 30px; }
+
+.btn-primary, .btn-secondary {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-primary { background-color: var(--accent-red); color: white; margin-right: 15px; }
+.btn-primary:hover { background-color: #b2070f; }
+
+.btn-secondary { background-color: rgba(255,255,255,0.3); color: white; backdrop-filter: blur(5px); }
+
+/* --- MOVIE GRID --- */
+.container { padding: 50px 5%; }
+.section-title { border-left: 4px solid var(--accent-red); padding-left: 15px; margin-bottom: 30px; }
+
+.movie-grid {
+    display: grid;
+    /* Mágica do Grid: cria colunas automáticas de no mínimo 200px */
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 30px;
+}
+
+.movie-card {
+    background-color: var(--bg-card);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.movie-card:hover { transform: translateY(-10px); }
+
+.poster-wrapper { position: relative; height: 300px; overflow: hidden; }
+.poster-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+
+.rating-badge {
+    position: absolute;
+    top: 10px; right: 10px;
+    background: rgba(0,0,0,0.8);
+    color: #ffd700; /* Dourado */
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 0.9rem;
+}.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--text-primary); /* Força a cor branca */
+    text-decoration: none;      /* Remove o sublinhado padrão de link */
+}
+
+
+/* Garante que não fique roxo nem depois de clicar */
+.logo:visited {
+    color: var(--text-primary);
+}
+
+.card-info { padding: 15px; }
+.card-info h3 { font-size: 1rem; margin-bottom: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.card-info .genre { color: var(--text-gray); font-size: 0.85rem; }
+
+footer { text-align: center; padding: 40px; color: var(--text-gray); font-size: 0.9rem; border-top: 1px solid #333; }
+
+
+/* --- PÁGINA DE LOGIN (Estilo Imersivo) --- */
+
+/* Imagem de fundo fixa cobrindo tudo */
+.login-page {
+    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://placehold.co/1920x1080/1a1a1a/555?text=Background+Cinema');
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.login-header {
+    padding: 20px 5%;
+    position: absolute; /* Fica sobre a imagem */
+    top: 0;
+    width: 100%;
+    z-index: 10;
+}
+
+/* Centraliza o card na tela */
+.login-wrapper {
+    flex: 1; /* Ocupa o espaço restante */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.login-card {
+    background-color: rgba(0, 0, 0, 0.75); /* Fundo Preto Translúcido (Vidro Escuro) */
+    padding: 60px 68px 40px;
+    border-radius: 4px;
+    width: 100%;
+    max-width: 450px; /* Tamanho padrão de login */
+    min-height: 500px;
+    color: var(--text-primary);
+}
+
+.login-card h2 {
+    font-size: 2rem;
+    margin-bottom: 28px;
+    font-weight: 700;
+}
+
+/* Estilização dos Inputs (estilo Dark) */
+.input-group {
+    margin-bottom: 16px;
+}
+
+.input-group input {
+    width: 100%;
+    background: #333;
+    border: none;
+    border-radius: 4px;
+    height: 50px;
+    padding: 16px 20px;
+    color: white;
+    font-size: 1rem;
+    outline: none;
+}
+
+/* Efeito de foco laranja/vermelho sutil */
+.input-group input:focus {
+    background: #454545;
+    border-bottom: 2px solid var(--accent-red);
+}
+
+.btn-block {
+    width: 100%; /* Botão ocupa toda largura */
+    margin-top: 24px;
+    padding: 16px;
+    font-size: 1rem;
+}
+
+/* Links e Texto de Apoio */
+.form-help {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    color: #b3b3b3;
+    margin-top: 10px;
+}
+
+.form-help a { color: #b3b3b3; text-decoration: none; }
+.form-help a:hover { text-decoration: underline; }
+
+.login-footer {
+    margin-top: 50px;
+    color: #737373;
+}
+
+.signup-link {
+    color: white;
+    text-decoration: none;
+}
+
+.signup-link:hover { text-decoration: underline; }
+
+.small-text {
+    font-size: 0.8rem;
+    margin-top: 10px;
+}
+
+/* Mobile Responsivo */
+@media (max-width: 740px) {
+    .login-card {
+        padding: 40px 30px; /* Menos padding no celular */
+        background-color: black; /* Fundo sólido no mobile para leitura melhor */
+    }
+    .login-wrapper {
+        align-items: flex-start; /* No mobile, o login sobe um pouco */
+        padding-top: 80px;
+    }
+}

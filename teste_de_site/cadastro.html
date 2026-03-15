@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineReview - Cadastro</title>
+    <link rel="stylesheet" href="assets/style.css">
+</head>
+<body class="login-page">
+
+    <header class="login-header">
+        <a href="index.php" class="logo">Cine<span class="highlight">Review</span></a>
+    </header>
+
+    <div class="login-wrapper">
+        <div class="login-card">
+            <h2>Criar Conta</h2>
+
+            <form action="backend/salvar_usuario.php" method="POST">
+                
+                <div class="input-group">
+                    <input type="text" name="nome" placeholder="Crie seu usuário" required>
+                </div>
+
+                <div class="input-group">
+                    <input type="email" name="email" placeholder="Email ou número de telefone" required>
+                </div>
+                
+                <div class="input-group">
+                    <input type="password" name="senha" placeholder="Crie uma senha" required>
+                </div>
+
+                <button type="submit" class="btn-primary btn-block">Cadastrar</button>
+                
+                <div class="form-help">
+                    <div class="remember-me">
+                        <input type="checkbox" id="remember" checked>
+                        <label for="remember">Lembre-se de mim</label>
+                    </div>
+                    <a href="#">Precisa de ajuda?</a>
+                </div>
+            </form>
+
+            <div class="login-footer">
+                <p>Já tem uma conta? <a href="login.php" class="signup-link">Faça login agora.</a></p>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
