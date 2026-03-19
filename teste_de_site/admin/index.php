@@ -13,12 +13,6 @@ if (!isset($_SESSION['logado']) || $_SESSION['logado'] !== true || $_SESSION['is
     <meta charset="UTF-8">
     <title>Painel ADM - CineReview</title>
     <link rel="stylesheet" href="../assets/style.css">
-    <style>
-        .admin-container { max-width: 800px; margin: 50px auto; padding: 30px; background: var(--card-bg); border-radius: 10px; border: 1px solid #333; }
-        .admin-form input, .admin-form textarea { width: 100%; padding: 12px; margin-top: 5px; margin-bottom: 20px; background: #222; border: 1px solid #444; color: white; border-radius: 5px; }
-        .admin-form label { color: var(--text-gray); font-weight: bold; }
-        .header-admin { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 1px solid #333; padding-bottom: 20px; }
-    </style>
 </head>
 <body style="background-color: #141414; color: white; font-family: sans-serif;">
     
