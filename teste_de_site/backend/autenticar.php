@@ -8,7 +8,6 @@ error_reporting(E_ALL);
 include '../configs/conexao.php';
 
 // --- FUNÇÃO DE DESIGN DE ERRO ---
-// Essa função constrói uma tela bonita com o seu CSS sempre que der algo errado
 function mostrarErro($titulo, $mensagem, $textoBotao, $link) {
     echo '<!DOCTYPE html>
     <html lang="pt-br">
@@ -41,8 +40,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = trim($_POST['email']);
     $senha_digitada = trim($_POST['senha']);
 
-    $sql = "SELECT nome_usuario, senha_usuario FROM login WHERE email_usuario = ?";
-    $sql = "SELECT nome_usuario, senha_usuario, is_admin FROM login WHERE email_usuario = ?";
+    // BUSCA ATUALIZADA: Agora pegamos o ID e o nível de Admin
+    $sql = "SELECT id_usuario, nome_usuario, senha_usuario, is_admin FROM login WHERE email_usuario = ?";
 
     $stmt = $conn->prepare($sql);
     
@@ -56,28 +55,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $usuario = $resultado->fetch_assoc();
             
             if (password_verify($senha_digitada, $usuario['senha_usuario'])) {
-                // Sucesso Total! Cria a sessão e joga pro Index
+                // --- SESSÃO ATUALIZADA ---
                 $_SESSION['logado'] = true;
+                $_SESSION['id_usuario'] = $usuario['id_usuario']; // NOVO: Guardamos o ID para as reviews
                 $_SESSION['email_usuario'] = $email;
                 $_SESSION['nome_usuario'] = $usuario['nome_usuario'];
-                $_SESSION['is_admin'] = $usuario['is_admin'];
+                $_SESSION['is_admin'] = $usuario['is_admin']; // 0 ou 1
                 
-                header("Location: ../index.php");
+                // --- REDIRECIONAMENTO INTELIGENTE ---
+                if ($_SESSION['is_admin'] == 1) {
+                    header("Location: ../admin/index.php"); // Vai para o painel se for Admin
+                } else {
+                    header("Location: ../index.php"); // Vai para a home se for usuário comum
+                }
                 exit();
                 
             } else {
-                // ERRO 1: Usando a função visual para Senha Incorreta
-                mostrarErro("Senha Incorreta", "A senha que você digitou não confere com os nossos registros. Verifique se o Caps Lock está ativado.", "Tentar Novamente", "../login.php");
+                mostrarErro("Senha Incorreta", "A senha que você digitou não confere com os nossos registros.", "Tentar Novamente", "../login.php");
             }
             
         } else {
-            // ERRO 2: Usando a função visual para Usuário Não Encontrado
-            mostrarErro("Email Não Encontrado", "Não encontramos nenhuma conta associada a este e-mail. Junte-se a nós e crie sua conta agora!", "Criar Nova Conta", "../cadastro.html");
+            mostrarErro("Email Não Encontrado", "Não encontramos nenhuma conta associada a este e-mail.", "Criar Nova Conta", "../cadastro.html");
         }
         
         $stmt->close();
     } else {
-        mostrarErro("Erro Técnico", "Tivemos um problema de conexão com o servidor. Tente novamente mais tarde.", "Voltar", "../login.php");
+        mostrarErro("Erro Técnico", "Tivemos um problema de conexão com o servidor.", "Voltar", "../login.php");
     }
 }
 ?>
